@@ -4,6 +4,7 @@ from typing import Iterator, Set
 
 import requests
 from bs4 import BeautifulSoup
+from termcolor import cprint
 
 from . import config
 
@@ -50,12 +51,12 @@ class Scraper:
             },
         )
         if resp.text.find('Sign In') == -1:
-            print("Successfully logged in.")
+            cprint("Successfully logged in.", 'green')
             # Just in case
             r = self.session.get('https://atcoder.jp/settings')
             assert(r.text.find(self.config.username) != -1)
         else:
-            print("Failed to Log in.")
+            cprint("Failed to Log in.", 'yellow')
 
     def _format_url(self, url: str) -> str:
         if url[:len(self.CONTEST_URL_BASE)] != self.CONTEST_URL_BASE:
@@ -102,7 +103,7 @@ class Scraper:
             f.write('*/\n')
             with open(self.config._template_path) as t:
                 f.write(t.read())
-        print(f"{output_path} was splatted!")
+        cprint(f"{output_path} was splatted!", 'green')
 
     def _get_task_list_url(self, url: str) -> str:
         if url[:len(self.CONTEST_URL_BASE)] != self.CONTEST_URL_BASE:
@@ -121,7 +122,7 @@ class Scraper:
         return {f'{self.URL_BASE}{link}' for link in links if isinstance(link, str) and 'tasks/' in link}
 
     def start_contest(self, url: str) -> None:
-        print(f"Start contest with {url}")
+        cprint(f"Start contest with {url}", 'cyan')
         output_dir = Path('.') / Path(url).name
         output_dir.mkdir(exist_ok=True, parents=True)
         for task_url in self._get_task_urls(url):
