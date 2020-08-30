@@ -45,11 +45,11 @@ def check(file_path: Path, conf: config.Config) -> None:
 
     # Execute
     for i, sample in enumerate(sample_cases):
-        cprint(f" -- Sample input {i+1} --", 'grey')
+        cprint(f" -- Sample input {i+1} --", 'white')
         cprint(sample.input_text, 'blue', end='')
-        cprint(" -- Expected output--", 'grey')
+        cprint(" -- Expected output--", 'white')
         cprint(sample.output_text, 'cyan', end='')
-        cprint(" -- Your output --", 'grey')
+        cprint(" -- Your output --", 'white')
         process = subprocess.run(
             ['./splat.out'],
             input=sample.input_text,
