@@ -55,5 +55,5 @@ password: "xxxxxxxxxxxx"
 ```
 
 Note that
-* the first line is necessary for the yaml loader implemented at `work/src/config.py`.
+* the first line is necessary for the yaml loader implemented at `splatcoder/config.py`.
 * `username` and `password` are necessary for generating templates from the ongoing contest's page.
