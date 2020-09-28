@@ -58,14 +58,18 @@ def check(file_path: Path, conf: config.Config) -> None:
             universal_newlines=True,
         )
         # print(process)
-        if process.returncode != 0:
-            cprint(process.stderr, 'red')
-            sys.exit(1)
-            return
         cprint(process.stdout, 'magenta')
-
-    # TODO: should be finally or something
+        cprint(process.stderr, 'red')
+        if process.returncode == -11:
+            cprint("Segmentation fault: 11", 'red')
+            sys.exit(11)
+            os.remove('splat.out')
+        elif process.returncode != 0:
+            cprint("Code exited with some errors!", 'red')
+            sys.exit(1)
+            os.remove('splat.out')
     os.remove('splat.out')
+    cprint("Tested sample inputs successfully!", 'green')
 
 
 def main() -> int:
