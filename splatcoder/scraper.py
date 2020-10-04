@@ -80,7 +80,7 @@ class Scraper:
 
     @staticmethod
     def _strip(text: str) -> str:
-        return text.strip(' ,　,\n,\r')
+        return text.strip(' ,　,\n,\r').replace('\r\n', '\n')
 
     def start_task(self, url: str, output_dir: Path) -> None:
         output_dir = output_dir.absolute()
