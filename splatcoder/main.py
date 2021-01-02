@@ -2,8 +2,8 @@ import argparse
 from pathlib import Path
 
 from . import config
-from .scraper import Scraper
 from .check import check
+from .scraper import Scraper
 
 
 def main() -> None:
