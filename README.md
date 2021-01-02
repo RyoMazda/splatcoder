@@ -10,7 +10,10 @@ This package is not registered at pypi.
 
 ### Installing from source
 ```sh
-pip install -e .
+pip install .
+# or
+poetry build
+pip install dist/splatcoder-<version>-py3-none-any.whl
 ```
 
 ## Usage

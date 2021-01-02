@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "splatcoder"
+version = "0.1.0"
+description = "Template generation tool for atcoder.jp."
+authors = ["pigimaru <pigimaru@gmail.com>"]
+
+[tool.poetry.scripts]
+splat = 'splatcoder.main:main'
+
+[tool.poetry.dependencies]
+python = "^3.8"
+termcolor = "^1.1.0"
+PyYAML = "^5.3.1"
+requests = "^2.25.1"
+beautifulsoup4 = "^4.9.3"
+Jinja2 = "^2.11.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^3.8.4"
+mypy = "^0.790"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
