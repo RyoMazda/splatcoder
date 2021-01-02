@@ -25,7 +25,7 @@ class Config(yaml.YAMLObject):
 
 def _generate_default_config_file(path: Path) -> None:
     default_config_yml = '''!splatcoder_config
-build_command: "g++ -std=c++14"
+build_command:
 template_path:
 username:
 password:

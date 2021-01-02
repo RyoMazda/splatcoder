@@ -56,13 +56,44 @@ class Checker(ABC):
 
     @abstractmethod
     def _build(self) -> None:
-        pass
+        ...
 
     @abstractmethod
     def _execute(self, sample: SampleCase) -> None:
-        pass
+        ...
 
     @abstractmethod
+    def _clean_up(self) -> None:
+        ...
+
+
+class PyChecker(Checker):
+    def __init__(
+        self,
+        file_path: Path,
+        conf: config.Config,
+    ) -> None:
+        super().__init__(file_path, conf)
+
+    def _build(self) -> None:
+        # mypy sameday
+        pass
+
+    def _execute(self, sample: SampleCase) -> None:
+        process = subprocess.run(
+            ['python', self.file_path],
+            input=sample.input_text,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+        )
+        # print(process)
+        cprint(process.stdout, 'magenta')
+        cprint(process.stderr, 'red')
+        if process.returncode != 0:
+            cprint("Code exited with some errors!", 'red')
+            sys.exit(1)
+
     def _clean_up(self) -> None:
         pass
 
@@ -116,4 +147,10 @@ class CppChecker(Checker):
 
 
 def load(file_path: Path, conf: config.Config) -> Checker:
-    return CppChecker(file_path, conf)
+    ext = file_path.suffix
+    if ext == '.py':
+        return PyChecker(file_path, conf)
+    elif ext == '.cpp':
+        return CppChecker(file_path, conf)
+    else:
+        raise ValueError("The extention of the target file is invalid!")

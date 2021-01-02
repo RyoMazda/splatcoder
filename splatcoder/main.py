@@ -3,7 +3,7 @@ from pathlib import Path
 
 from . import config
 from . import checker
-from .scraper import Scraper
+from . import generator
 
 
 def main() -> None:
@@ -18,11 +18,11 @@ def main() -> None:
     elif len(args.args) == 2:
         method = args.args[0]
         url = args.args[1]
-        scraper = Scraper(conf)
+        g = generator.load(conf)
         if method in ('start-contest', 'sc', 'c'):
-            scraper.start_contest(url)
+            g.start_contest(url)
         elif method in ('start-task', 'st', 't'):
-            scraper.start_task(url, Path('.'))
+            g.start_task(url, Path('.'))
         else:
             raise ValueError("Invalid arguments!")
     else:
