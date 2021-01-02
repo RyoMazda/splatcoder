@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from . import config
-from .check import check
+from . import checker
 from .scraper import Scraper
 
 
@@ -13,7 +13,8 @@ def main() -> None:
     conf = config.load()
     if len(args.args) == 1:
         file_path = args.args[0]
-        check(Path(file_path), conf=conf)
+        c = checker.load(file_path=Path(file_path), conf=conf)
+        c.run()
     elif len(args.args) == 2:
         method = args.args[0]
         url = args.args[1]
